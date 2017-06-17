@@ -1,71 +1,53 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import TextField from 'material-ui/TextField';
+import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { loginUser } from 'actions/login';
+import { Input, FormService } from 'containers';
+import { loginIfNeeded } from 'actions/login';
+import { notEmptyMany } from 'utils/validation';
 
-class Login extends Component {
+class Login extends FormService {
   constructor(props) {
     super(props);
-
-    this.initialInput = '';
-    this.changeInput = this.changeInput.bind(this);
+    this.username = '';
     this.handleSubmit = this.handleSubmit.bind(this);
-
-    this.state = {
-      input: this.initialInput
-    };
-
   }
 
   handleSubmit(e) {
-    const {
-      props: { loginUser },
-      state: { input },
-      changeInput,
-      initialInput
-    } = this;
-
     e.preventDefault();
+    const { props: { loginUser }, resetState, username } = this;
+    const fields = [ username ];
 
-    const user = input.trim();
-    if (user.length > 0) loginUser(user);
-
-    changeInput(initialInput);
-  }
-
-  changeInput(newInput) {
-    this.setState({
-      input: newInput
-    });
+    if (notEmptyMany(fields)) {
+      loginUser({ username });
+      resetState();
+    }
   }
 
   render() {
-    const {
-      state: { input },
-      changeInput,
-      handleSubmit
-    } = this;
+    const { state: { shouldReset }, handleInput, handleSubmit } = this;
 
     return (
-      <section className="login">
+      <form className="form" onSubmit={handleSubmit}>
         <h1 className="any__title">Login Page</h1>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            value={input}
-            onChange={(e, value) => changeInput(value)}
-            floatingLabelText="User"
-          />
-          <RaisedButton
-            type="submit"
-            className="login__btn"
-            label="Log in"
-            primary
-          />
-        </form>
-      </section>
+        <Input
+          className="form__input"
+          label="Username"
+          reset={shouldReset}
+          callback={input => handleInput('username', input)}
+        />
+        <p>
+          Don't have an account?&nbsp;
+          <Link to="/register">Create a new one.</Link>
+        </p>
+        <RaisedButton
+          type="submit"
+          className="form__btn"
+          label="Log in"
+          primary
+        />
+      </form>
     );
   }
 }
@@ -75,9 +57,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginUser: user => {
-    dispatch(loginUser(user));
-    dispatch(push('/'));
+  loginUser: loginData => {
+    dispatch(loginIfNeeded(loginData));
+    //dispatch(push('/'))
   }
 });
 

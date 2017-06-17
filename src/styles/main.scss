@@ -5,3 +5,23 @@
 .any__title {
   font-weight: lighter;
 }
+
+.form {
+  position: relative;
+  max-width: 300px;
+  margin: auto;
+}
+
+.form__input {
+  display: block!important;
+  width: 100%!important;
+}
+
+.form__btn {
+  position: absolute;
+  width: 150px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: -70px;
+}
