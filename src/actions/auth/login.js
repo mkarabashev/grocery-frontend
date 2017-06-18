@@ -1,13 +1,15 @@
 import axios from 'utils/axios';
 import { push } from 'react-router-redux';
 
-import { actionIfNeeded } from './common';
+import { actionIfNeeded, shouldDoAction } from '../common';
+import { toReduxList } from 'utils/misc';
 import {
   LOGIN_USER_AWAIT,
   LOGIN_USER_FAIL,
   LOGIN_USER_SUCCESS,
   LOG_OFF
-} from '../constants';
+} from 'constants/index';
+
 
 export const loginAwait = () => ({ type: LOGIN_USER_AWAIT });
 export const loginFail = error => ({ type: LOGIN_USER_FAIL, error });
@@ -17,16 +19,14 @@ export const loginSuccess = userData =>
 export const login = userData => dispatch => {
   dispatch(loginAwait());
   return axios.post('/api/auth/login', userData)
-    .then(res => res.status === 200
-      ? dispatch(loginSuccess(res.data))
-      : Promise.reject({ message: 'Wrong status code from server on path /api/auth/login'})
-    )
-    .then(() => dispatch(push('/')))
-    .catch(err => dispatch(loginFail(err.response.data.error)))
+    .then(res => ({ ...res.data, lists: toReduxList(res.data.lists) }))
+    .then(data => dispatch(loginSuccess(data)))
+    .then(() => dispatch(push('/grocerylist')))
+    .catch(err => dispatch(loginFail(err.response.data)))
     .catch(console.error);
 }
 
-export const shouldLogin = state => !state.user.get('await');
+export const shouldLogin = shouldDoAction('authStatus', [ 'login' ]);
 
 export const loginIfNeeded = actionIfNeeded(shouldLogin, login);
 

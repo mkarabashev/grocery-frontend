@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import { Input, FormService } from 'containers';
-import { loginIfNeeded } from 'actions/login';
+import { loginIfNeeded } from 'actions/auth/login';
 import { notEmptyMany } from 'utils/validation';
 
 class Login extends FormService {

@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import { Input, FormService } from 'containers';
 import { notEmptyMany } from 'utils/validation';
-import { registerIfNeeded } from 'actions/register';
+import { registerIfNeeded } from 'actions/auth/register';
 
 class Register extends FormService {
   constructor(props) {

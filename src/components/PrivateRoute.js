@@ -5,10 +5,10 @@ import { Redirect } from 'react-router-dom';
 const PrivateRoute = ({ component: Component, user }) => {
   if (user) return <Component />;
   return <Redirect to='/login' />;
-}
+};
 
 const mapStateToProps = state => ({
-  user: state.user.getIn([ 'userData', 'username' ])
-})
+  user: state.user.get('username')
+});
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -1,10 +1,17 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+
 import user from './user';
-import registration from './registration';
+import groceries from './groceries';
+import listsStatus from './listsStatus';
+import itemsStatus from './itemsStatus';
+import authStatus from './authStatus';
 
 export default combineReducers({
   user,
-  registration,
+  groceries,
+  listsStatus,
+  itemsStatus,
+  authStatus,
   router: routerReducer
 });

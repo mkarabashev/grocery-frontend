@@ -8,9 +8,10 @@ import * as pages from './pages';
 
 const Routes = () => (
   <div>
-    <PrivateRoute exact path="/" component={pages.Home} />
+    <Route exact path="/" component={pages.Home} />
     <Route path="/login" component={pages.Login} />
     <Route path="/register" component={pages.Register} />
+    <PrivateRoute exact path="/grocerylist" component={pages.Groceries} />
   </div>
 );
 
