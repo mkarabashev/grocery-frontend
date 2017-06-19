@@ -1,32 +1,36 @@
 import axios from 'utils/axios';
 
+import { addList } from './addList';
 import { actionIfNeeded, shouldDoAction } from '../common';
 import { toReduxList } from 'utils/misc';
 import {
-  COMPLETE_ITEMS_AWAIT,
-  COMPLETE_ITEMS_FAIL,
-  COMPLETE_ITEMS_SUCCESS
+  EDIT_LIST_NAME_AWAIT,
+  EDIT_LIST_NAME_FAIL,
+  EDIT_LIST_NAME_SUCCESS
 } from 'constants/index';
 
-const completeItemsAwait = () => ({ type: COMPLETE_ITEMS_AWAIT });
-const completeItemsFail = error => ({ type: COMPLETE_ITEMS_FAIL, error });
-const completeItemsSuccess = listData =>
-  ({ type: COMPLETE_ITEMS_SUCCESS, listData });
+const editListNameAwait = () => ({ type: EDIT_LIST_NAME_AWAIT });
+const editListNameFail = error => ({ type: EDIT_LIST_NAME_FAIL, error });
+const editListNameSuccess = listData =>
+  ({ type: EDIT_LIST_NAME_SUCCESS, listData });
 
-export const completeItem = itemData => (dispatch, getState) => {
+export const editListName = name => (dispatch, getState) => {
   const state =  getState();
   const username = state.user.get('username');
   const listId = state.current.get('current');
-  const data = { username, listId, ...itemData };
 
-  dispatch(completeItemsAwait());
-  return axios.put('/api/groceries/complete', data)
+  if (!listId) return dispatch(addList(name));
+
+  const data = { username, listId, name };
+
+  dispatch(editListNameAwait());
+  return axios.put('/api/groceries/listname', data)
     .then(res => toReduxList([res.data]))
-    .then(list => dispatch(completeItemsSuccess(list)))
-    .catch(err => dispatch(completeItemsFail(err)))
+    .then(list => dispatch(editListNameSuccess(list)))
+    .catch(err => dispatch(editListNameFail(err)))
     .catch(console.error);
 };
 
-export const shouldCompleteItem = shouldDoAction('itemsStatus', [ 'completeItem' ]);
+export const shouldEditName = shouldDoAction('listsStatus', [ 'editName' ]);
 
-export const CompleteItemIfNeeded = actionIfNeeded(shouldCompleteItem, completeItem);
+export const editNameIfNeeded = actionIfNeeded(shouldEditName, editListName);

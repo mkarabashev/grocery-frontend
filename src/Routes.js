@@ -1,17 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-//import { ConnectedRouter } from 'react-router-redux';
-import { HashRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 
 import Layout from './Layout';
-//import history from './history';
+import history from './history';
 
 const NonBlockApp = withRouter(Layout);
 
 const Routes = () => (
-  <HashRouter>
+  <ConnectedRouter history={history}>
     <NonBlockApp />
-  </HashRouter>
+  </ConnectedRouter>
 );
 
 export default Routes;
