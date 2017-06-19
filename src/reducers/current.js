@@ -3,12 +3,17 @@ import { Map } from 'immutable';
 import {
   SHOW_OPTIMISTIC_LIST,
   GET_LIST_SUCCESS,
-  LOGIN_USER_SUCCESS
+  LOGIN_USER_SUCCESS,
+  SET_WINDOW_WIDTH,
+  CLOSE_DRAWER,
+  OPEN_DRAWER
 } from '../constants'
 
 const initialState = Map({
   current: null,
-  optimistic: false
+  optimistic: false,
+  windowWidth: 1360,
+  drawer: true
 });
 
 export default function current(state= initialState, action) {
@@ -28,6 +33,12 @@ export default function current(state= initialState, action) {
         'current',
         Object.keys(action.userData.lists)[0]
       );
+    case SET_WINDOW_WIDTH:
+      return state.set('windowWidth', action.width);
+    case CLOSE_DRAWER:
+      return state.set('drawer', false);
+    case OPEN_DRAWER:
+      return state.set('drawer', true);
     default:
       return state;
   }

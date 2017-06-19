@@ -55,7 +55,7 @@ class ItemViewer extends Component {
 
   render() {
     const {
-      props: { createItem, changeListName, listName, items, complete },
+      props: { createItem, changeListName, listName, items, complete, drawer },
       state: { editDialog, newItemDialog, isCompleted },
       handleEditBtn,
       handleNewBtn,
@@ -83,8 +83,10 @@ class ItemViewer extends Component {
         );
       });
 
+    const noDrawerStyle = { marginLeft: 0 };
+
     return (
-      <div className="item-viewer">
+      <div style={drawer ? {} : noDrawerStyle} className="item-viewer">
         <ListTitle
           changeTitle={changeListName}
           listName={listName}
@@ -128,7 +130,8 @@ const mapStateToProps = state => {
 
   return {
     listName: currentList.get('name'),
-    items: currentList.get('items').toArray()
+    items: currentList.get('items').toArray(),
+    drawer: state.current.get('drawer')
   }
 };
 
