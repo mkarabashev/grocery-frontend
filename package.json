@@ -2,6 +2,7 @@
   "name": "grocery-frontend",
   "version": "0.1.0",
   "author": "Maxim Karabashev",
+  "homepage" : "http://mkarabashev.github.io/grocery-frontend",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
@@ -35,6 +36,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build": "cross-env NODE_PATH=src react-scripts build",
     "test": "cross-env NODE_PATH=src react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"    
   }
 }
