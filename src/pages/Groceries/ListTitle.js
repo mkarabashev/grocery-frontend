@@ -17,10 +17,7 @@ class ListTitle extends FormService {
     e.preventDefault();
     const { props: { changeTitle, listId }, title } = this;
 
-    if (!isEmpty(title)) changeTitle({
-      name: title,
-      listId: listId
-    });
+    if (!isEmpty(title)) changeTitle(title);
   }
 
   render() {
@@ -42,8 +39,9 @@ class ListTitle extends FormService {
         <Input
           className="form__input--singlerow"
           label="List Title"
-          initialInput={listName}
+          initialInput={listName || ''}
           callback={input => handleInput('title', input)}
+          dynamic
         />
       </form>
     );

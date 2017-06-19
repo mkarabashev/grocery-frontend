@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 class Input extends Component {
   constructor(props) {
     super(props);
-    this.dynamicInput = !!this.props.initialInput
+    this.dynamicInput = this.props.dynamic;
     this.initialInput = this.props.initialInput || '';
     this.changeInput = this.changeInput.bind(this);
 
@@ -15,7 +15,7 @@ class Input extends Component {
 
   componentWillReceiveProps({ reset, initialInput }) {
     if (reset) this.changeInput(this.initialInput);
-    if (this.dynamicInput && initialInput !== this.initialInput) {
+    if (this.dynamicInput && initialInput !== this.state.input) {
       this.changeInput(initialInput);
     }
   }
@@ -32,7 +32,7 @@ class Input extends Component {
 
   render() {
     const {
-      props: { label, callback, reset, initialInput, ...otherProps },
+      props: { label, callback, reset, initialInput, dynamic, ...otherProps },
       state: { input },
       changeInput
     } = this;

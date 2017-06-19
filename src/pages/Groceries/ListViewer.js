@@ -27,7 +27,7 @@ const ListViewer = ({ lists, removeList, showList }) => {
 
   return (
     <div className="list-viewer">
-      <List className="lists">
+      <List>
         <Subheader>Available Lists:</Subheader>
         {listNames}
       </List>

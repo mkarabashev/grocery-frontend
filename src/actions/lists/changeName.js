@@ -13,9 +13,11 @@ const editListNameFail = error => ({ type: EDIT_LIST_NAME_FAIL, error });
 const editListNameSuccess = listData =>
   ({ type: EDIT_LIST_NAME_SUCCESS, listData });
 
-export const editListName = listData => (dispatch, getState) => {
-  const username = getState().user.get('username');
-  const data = { ...listData, username };
+export const editListName = name => (dispatch, getState) => {
+  const state =  getState();
+  const username = state.user.get('username');
+  const listId = state.current.get('current');
+  const data = { username, listId, name };
 
   dispatch(editListNameAwait());
   return axios.put('/api/groceries/listname', data)

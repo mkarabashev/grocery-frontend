@@ -36,6 +36,10 @@
   top: 45px;
 }
 
+.form__btn--multi {
+  margin: 0 20px 20px 20px;
+}
+
 .list-viewer {
   width: 300px;
   margin: auto;
@@ -43,6 +47,7 @@
 }
 
 .item-viewer {
+  position: relative;
   margin-left: 350px;
 }
 
@@ -51,4 +56,33 @@
   width: 100%;
   padding: 10px;
   margin: -10px 0;
+}
+
+.item-viewer__addbtn {
+  position: absolute;
+  width: 290px;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 100px;
+}
+
+.lists {
+  position: relative;
+  margin: 100px auto 0 auto;
+  max-width: 300px;
+}
+
+.lists__switch {
+  text-align: right;
+}
+
+.lists__switch-item {
+  height: 15px;
+  cursor: pointer;
+}
+
+.lists__switch-item--active {
+  color: #29B6F6;
+  text-decoration: underline
 }
