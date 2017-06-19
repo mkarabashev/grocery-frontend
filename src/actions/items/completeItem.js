@@ -13,11 +13,11 @@ const completeItemsFail = error => ({ type: COMPLETE_ITEMS_FAIL, error });
 const completeItemsSuccess = listData =>
   ({ type: COMPLETE_ITEMS_SUCCESS, listData });
 
-export const completeItem = itemId => (dispatch, getState) => {
+export const completeItem = itemData => (dispatch, getState) => {
   const state =  getState();
   const username = state.user.get('username');
   const listId = state.current.get('current');
-  const data = { username, listId, itemId };
+  const data = { username, listId, ...itemData };
 
   dispatch(completeItemsAwait());
   return axios.put('/api/groceries/complete', data)

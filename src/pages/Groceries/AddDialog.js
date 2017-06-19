@@ -3,7 +3,7 @@ import { FormService, Input } from 'containers';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { notEmptyMany } from 'utils/validation';
+import { isEmpty } from 'utils/validation';
 //import { addItemfNeeded } from 'actions/items/addItem';
 
 class AddDialog extends FormService {
@@ -23,8 +23,8 @@ class AddDialog extends FormService {
       itemNotes
     } = this;
 
-    if (!notEmptyMany([ newItem, itemNotes ])) {
-      createItem({ name: newItem, notes: itemNotes});
+    if (!isEmpty(newItem)) {
+      createItem({ name: newItem, notes: itemNotes });
     }
 
     resetState();

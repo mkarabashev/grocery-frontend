@@ -69,14 +69,27 @@ class ItemViewer extends Component {
         const _id = item.get('_id');
         const name = item.get('name');
         const notes = item.get('notes');
+        const completed = item.get('completed');
 
         return (
           <ListItem
             key={_id}
             primaryText={<div
               className="item-viewer__label"
-              onClick={() => complete(_id)}
               children={[name]}
+              onClick={() => complete({
+                itemId: _id,
+                completed: !completed
+              })}
+            />}
+            secondaryText={notes && <div
+              className="item-viewer__label"
+              style={{padding: "10px 0 0 20px"}}
+              children={[notes]}
+              onClick={() => complete({
+                itemId: _id,
+                completed: !completed
+              })}
             />}
             rightIcon={<ModeEdit onClick={handleEditBtn} />}
           />
@@ -136,7 +149,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  complete: itemId => dispatch(CompleteItemIfNeeded(itemId)),
+  complete: itemData => dispatch(CompleteItemIfNeeded(itemData)),
   createItem: newItem => dispatch(addItemIfNeeded(newItem)),
   changeListName: newName => dispatch(editNameIfNeeded(newName))
 });

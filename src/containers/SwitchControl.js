@@ -31,7 +31,7 @@ class SwitchControl extends Component {
 
   render() {
     const {
-      props: { menuItems, callback },
+      props: { menuItems },
       checkActive,
       handleClick
     } = this;

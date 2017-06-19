@@ -4,7 +4,6 @@ import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { FormService, Input } from 'containers';
 import { isEmpty } from 'utils/validation';
-import { addListIfNeeded } from 'actions/lists/addList';
 
 class ListTitle extends FormService {
   constructor(props) {
@@ -15,7 +14,7 @@ class ListTitle extends FormService {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { props: { changeTitle, listId }, title } = this;
+    const { props: { changeTitle }, title } = this;
 
     if (!isEmpty(title)) changeTitle(title);
   }
@@ -25,7 +24,6 @@ class ListTitle extends FormService {
       props: { listName },
       handleInput,
       handleSubmit,
-      title
     } = this;
 
     return (

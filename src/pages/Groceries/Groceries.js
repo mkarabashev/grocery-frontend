@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 import Close from 'material-ui/svg-icons/navigation/close';
 
 import ListForm from './ListForm';
