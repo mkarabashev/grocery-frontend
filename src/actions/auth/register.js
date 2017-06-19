@@ -22,7 +22,7 @@ export const register = userData => dispatch => {
     .then(() => dispatch(push('/login')))
     .catch(err => dispatch(registerFail(err.response.data)))
     .catch(console.error);
-}
+};
 
 export const shouldRegister = shouldDoAction('authStatus', [ 'registration' ]);
 

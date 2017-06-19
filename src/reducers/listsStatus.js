@@ -34,14 +34,15 @@ export default function listStatus (state = initialState, action) {
     case REMOVE_LIST_FAIL:
     case REMOVE_LIST_SUCCESS:
       return statusSetter('removeList', state, action);
-    case GET_LIST_AWAIT:
-    case GET_LIST_FAIL:
-    case GET_LIST_SUCCESS:
-      return statusSetter('getList', state, action);
     case EDIT_LIST_NAME_AWAIT:
     case EDIT_LIST_NAME_FAIL:
     case EDIT_LIST_NAME_SUCCESS:
       return statusSetter('editName', state, action);
+    case GET_LIST_AWAIT:
+      return state.setIn([ 'getList', 'await'], action.listId);
+    case GET_LIST_FAIL:
+    case GET_LIST_SUCCESS:
+      return statusSetter('getList', state, action);
     default:
       return state;
   }

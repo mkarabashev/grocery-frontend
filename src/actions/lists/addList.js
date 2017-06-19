@@ -22,7 +22,7 @@ export const addList = listName => (dispatch, getState) => {
     .then(reduxList => dispatch(addListSuccess(reduxList)))
     .catch(err => dispatch(err))
     .catch(console.error);
-}
+};
 
 export const shouldAddList = shouldDoAction('listsStatus', [ 'addList' ]);
 

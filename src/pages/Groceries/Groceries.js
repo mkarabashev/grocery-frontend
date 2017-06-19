@@ -1,19 +1,22 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {List, ListItem} from 'material-ui/List';
+import React, { Component } from 'react';
+import Drawer from 'material-ui/Drawer';
 
 import ListForm from './ListForm';
 import ListViewer from './ListViewer';
+import ItemViewer from './ItemViewer';
 
-const  Groceries = () => (
-  <section>
-    <ListForm />
-    <ListViewer className="list-viewer" />
-  </section>
-);
-
-const mapStateToProps = state => ({
-  lists: state.groceries.toArray()
-})
+class Groceries extends Component {
+  render() {
+    return (
+      <section>
+        <Drawer containerStyle={{width: 330}} open>
+          <ListForm />
+          <ListViewer />
+        </Drawer>
+        <ItemViewer />
+      </section>
+    );
+  }
+}
 
 export default Groceries;

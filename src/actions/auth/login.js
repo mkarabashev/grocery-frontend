@@ -24,7 +24,7 @@ export const login = userData => dispatch => {
     .then(() => dispatch(push('/grocerylist')))
     .catch(err => dispatch(loginFail(err.response.data)))
     .catch(console.error);
-}
+};
 
 export const shouldLogin = shouldDoAction('authStatus', [ 'login' ]);
 

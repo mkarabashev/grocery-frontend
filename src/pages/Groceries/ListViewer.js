@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 import Delete from 'material-ui/svg-icons/action/delete' ;
 
 import { removeListIfNeeded } from 'actions/lists/removeList';
+import { getListIfNeeded } from 'actions/lists/getList';
 
-const  ListViewer = ({ lists, removeList }) => {
+const ListViewer = ({ lists, removeList, showList }) => {
   const listNames = lists.map(list => {
     const _id = list.get('_id');
     const name = list.get('name');
@@ -13,11 +15,12 @@ const  ListViewer = ({ lists, removeList }) => {
     return (
       <ListItem
         key={_id}
-        primaryText={name}
-        onClick={() => console.log('show')}
-        rightIcon={
-          <Delete onClick={() => removeList(_id)} />
-        }
+        primaryText={<div
+          className="list-viewer__label"
+          onClick={() => showList(_id)}
+          children={[name]}
+        />}
+        rightIcon={<Delete onClick={() => removeList(_id)} />}
       />
     );
   })
@@ -25,6 +28,7 @@ const  ListViewer = ({ lists, removeList }) => {
   return (
     <div className="list-viewer">
       <List className="lists">
+        <Subheader>Available Lists:</Subheader>
         {listNames}
       </List>
     </div>
@@ -35,7 +39,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  removeList: listId => dispatch(removeListIfNeeded(listId))
+  removeList: listId => dispatch(removeListIfNeeded(listId)),
+  showList: listId => dispatch(getListIfNeeded(listId))
 });
 
 export default connect(

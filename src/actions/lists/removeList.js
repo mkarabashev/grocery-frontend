@@ -1,7 +1,6 @@
 import axios from 'utils/axios';
 
 import { actionIfNeeded, shouldDoAction } from '../common';
-import { toReduxList } from 'utils/misc';
 import {
   REMOVE_LIST_AWAIT,
   REMOVE_LIST_FAIL,
@@ -22,7 +21,7 @@ export const removeList = listId => (dispatch, getState) => {
     .then(() => dispatch(removeListSuccess(listId)))
     .catch(err => dispatch(removeListFail(err)))
     .catch(console.error);
-}
+};
 
 export const shouldRemoveList = shouldDoAction('listsStatus', [ 'removeList' ]);
 

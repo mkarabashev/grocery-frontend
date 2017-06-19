@@ -1,54 +1,53 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 
 import { FormService, Input } from 'containers';
 import { isEmpty } from 'utils/validation';
 import { addListIfNeeded } from 'actions/lists/addList';
 
-class ListForm extends FormService {
+class ListTitle extends FormService {
   constructor(props) {
     super(props);
-    this.newList = '';
+    this.title = this.props.listName;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { props: { createList }, resetState, newList } = this;
+    const { props: { changeTitle, listId }, title } = this;
 
-    if (!isEmpty(newList)) createList(newList);
-    resetState();
+    if (!isEmpty(title)) changeTitle({
+      name: title,
+      listId: listId
+    });
   }
 
   render() {
-    const { state: { shouldReset }, handleInput, handleSubmit } = this;
+    const {
+      props: { listName },
+      handleInput,
+      handleSubmit,
+      title
+    } = this;
 
     return (
       <form className="form" onSubmit={handleSubmit}>
         <FloatingActionButton
           type="submit"
           className="form__btn--singlerow"
-          children={[<ContentAdd />]}
+          children={[<ModeEdit />]}
           mini
         />
         <Input
           className="form__input--singlerow"
-          label="List Name"
-          reset={shouldReset}
-          callback={input => handleInput('newList', input)}
+          label="List Title"
+          initialInput={listName}
+          callback={input => handleInput('title', input)}
         />
       </form>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  createList: listName => dispatch(addListIfNeeded(listName))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(ListForm);
+export default ListTitle;
